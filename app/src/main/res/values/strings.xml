@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Trans Tools</string>
+    <string name="logoDesc">Trans Tools</string>
+    <string name="hapus_data_sebelumnya_pada_gondola">Hapus data sebelumnya pada gondola</string>
+
 </resources>

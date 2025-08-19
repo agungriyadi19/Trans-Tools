@@ -1,0 +1,12 @@
+<!-- res/drawable/zoom_in.xml -->
+<set xmlns:android="http://schemas.android.com/apk/res/android">
+    <scale
+        android:fromXScale="0.0"
+        android:fromYScale="0.0"
+        android:toXScale="1.0"
+        android:toYScale="1.0"
+        android:duration="1500"
+        android:pivotX="49%"
+        android:pivotY="49%"
+        android:interpolator="@android:anim/accelerate_decelerate_interpolator" />
+</set>

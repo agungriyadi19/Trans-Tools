@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navgraph"
+    app:startDestination="@id/loginFragment">
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.transtools.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.transtools.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_bebasExpiredFragment"
+            app:destination="@id/bebasExpiredFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/bebasExpiredFragment"
+        android:name="com.example.transtools.BebasExpiredFragment"
+        android:label="fragment_bebas_expired"
+        tools:layout="@layout/fragment_bebas_expired" >
+        <action
+            android:id="@+id/action_bebasExpiredFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_bebasExpiredFragment_to_dataExpiredFragment2"
+            app:destination="@id/dataExpiredFragment" />
+        <action
+            android:id="@+id/action_bebasExpiredFragment_to_tarikBarangFragment"
+            app:destination="@id/tarikBarangFragment" />
+        <action
+            android:id="@+id/action_bebasExpiredFragment_to_detailItemFragment"
+            app:destination="@id/detailItemFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/dataExpiredFragment"
+        android:name="com.example.transtools.DataExpiredFragment"
+        android:label="fragment_data_expired"
+        tools:layout="@layout/fragment_data_expired" >
+        <action
+            android:id="@+id/action_dataExpiredFragment_to_bebasExpiredFragment2"
+            app:destination="@id/bebasExpiredFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/tarikBarangFragment"
+        android:name="com.example.transtools.TarikBarangFragment"
+        android:label="fragment_tarik_barang"
+        tools:layout="@layout/fragment_tarik_barang" >
+        <deepLink
+            android:id="@+id/deepLinkToTarikBarang"
+            app:uri="myapp://tarikBarangFragment" />
+        <action
+            android:id="@+id/action_tarikBarangFragment_to_bebasExpiredFragment"
+            app:destination="@id/bebasExpiredFragment" />
+        <action
+            android:id="@+id/action_tarikBarangFragment_to_detailItemFragment"
+            app:destination="@id/detailItemFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailItemFragment"
+        android:name="com.example.transtools.DetailItemFragment"
+        android:label="fragment_detail_item"
+        tools:layout="@layout/fragment_detail_item" >
+        <action
+            android:id="@+id/action_detailItemFragment_to_tarikBarangFragment"
+            app:destination="@id/tarikBarangFragment" />
+        <action
+            android:id="@+id/action_detailItemFragment_to_bebasExpiredFragment"
+            app:destination="@id/bebasExpiredFragment" />
+    </fragment>
+</navigation>

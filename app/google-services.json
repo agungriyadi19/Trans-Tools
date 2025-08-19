@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "21446109074",
+    "project_id": "trans-tools-a009a",
+    "storage_bucket": "trans-tools-a009a.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:21446109074:android:4dfea4b72295d2f430434b",
+        "android_client_info": {
+          "package_name": "com.example.transtools"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAIkd4cFRJwShWjYnFHNjOoGjkyNEVPcLE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
