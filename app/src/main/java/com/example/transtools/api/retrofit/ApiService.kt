@@ -26,7 +26,7 @@ interface ApiService {
     @POST("/apiMobile/save-item")
     fun postData(@Body data: BebasExpiredModel?): Call<Void>
 
-    @PUT("/apiMobile/sold-out-item")
+    @PUT("/apiMobile/sold-item")
     fun deleteData(@Body data: soldOutModel?): Call<Void>
 
     @GET("/apiMobile/dashboard-didata")

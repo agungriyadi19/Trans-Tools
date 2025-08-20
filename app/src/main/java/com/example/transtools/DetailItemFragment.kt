@@ -31,6 +31,8 @@ import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.transtools.api.model.soldOutModel
+import com.example.transtools.api.retrofit.ApiConfig
+import com.example.transtools.api.retrofit.ApiService
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody.Companion.asRequestBody
@@ -81,6 +83,7 @@ class DetailItemFragment : Fragment() {
 
     private var resizedBitmap2: Bitmap? = null
 
+    private lateinit var apiService: ApiService
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_detail_item, container, false)
@@ -233,7 +236,7 @@ class DetailItemFragment : Fragment() {
 
     @RequiresApi(Build.VERSION_CODES.N)
     private fun showDataPopupSold() {
-        val dialogView = layoutInflater.inflate(R.layout.dialog_data_popup_tarik, null)
+        val dialogView = layoutInflater.inflate(R.layout.dialog_data_popup_sold, null)
 
         // Set nilai ke TextView di dialogView
         dialogView.findViewById<TextView>(R.id.noGondalaValue).text = noGondola
@@ -241,20 +244,13 @@ class DetailItemFragment : Fragment() {
         dialogView.findViewById<TextView>(R.id.tanggalExpiredValue).text = tanggalExpired
         dialogView.findViewById<TextView>(R.id.namaItemValue).text = itemName
         dialogView.findViewById<TextView>(R.id.statusItemValue).text = statusItem
-//        dialogView.findViewById<TextView>(R.id.jumlahValue).text = jumlahItem
-        dialogView.findViewById<TextView>(R.id.jumlahDitarik).text = inputQty.text.toString()
-        val imageView = dialogView.findViewById<ImageView>(R.id.hasilFotoB)
-
-        resizedBitmap2?.let {
-            imageView.setImageBitmap(it)
-        }
 
         val builder = AlertDialog.Builder(requireContext())
             .setTitle("Barang habis terjual")
             .setView(dialogView)
             .setPositiveButton("OK") { dialog, _ ->
                 dialog.dismiss()
-                kirim()
+                sold()
             }
             .setNegativeButton("Cancel") { dialog, _ ->
                 dialog.dismiss()
@@ -454,6 +450,40 @@ class DetailItemFragment : Fragment() {
                 }
             })
         }
+    }
+    private fun sold() {
+        val dataDelete = soldOutModel().apply {
+            ieId= idItem.toString()
+            ieUpdateUser = "$idUser"
+        }
+        apiService = ApiConfig.getApiService()
+
+        apiService.deleteData(dataDelete).enqueue(object : retrofit2.Callback<Void> {
+            override fun onResponse(call: retrofit2.Call<Void>, response: retrofit2.Response<Void>) {
+                if (response.isSuccessful) {
+                    Toast.makeText(context, "Barang habis terjual", Toast.LENGTH_SHORT)
+                        .show()
+                    findNavController().navigate(R.id.action_detailItemFragment_to_tarikBarangFragment)
+
+                } else {
+                    Toast.makeText(context, "Gagal menghapus data", Toast.LENGTH_SHORT).show()
+
+                    val errorMessage =
+                        "Gagal menghapus data. Kode status: ${response.code()}, Pesan: ${response.message()}"
+                    Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
+                    Log.e("API_CALL_ERROR", errorMessage)
+                }
+
+                validateInputs()
+            }
+
+            override fun onFailure(call: retrofit2.Call<Void>, t: Throwable) {
+                Toast.makeText(context, "Terjadi kesalahan: ${t.message}", Toast.LENGTH_SHORT)
+                    .show()
+                Log.e("API_CALL_ERROR", "Terjadi kesalahan: ${t.message}", t)
+            }
+        })
+        
     }
 
     private fun validateInputs() {
